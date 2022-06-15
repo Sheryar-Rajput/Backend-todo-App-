@@ -1,6 +1,10 @@
 const express = require('express') 
 const app = express()
 const db = require('./config/db')
+const cors = require('cors')
+app.use(cors({
+  origin: '*'
+})); 
 db.connection.once('open', () => {
     console.log('db connected')
   })
@@ -15,4 +19,3 @@ db.connection.once('open', () => {
 
 app.use(express.json())
 app.use('/' , require('./routes'))
- 
