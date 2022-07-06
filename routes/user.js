@@ -1,39 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const Users = require('../models/todos')
+const Users = require('../models/userLogin')
 const bcryptjs = require("bcryptjs")
-
-// router.get('/all', async(req, res) => {
-//     const user =  await Users.find({})
-//     res.send(user)
-// })
-
-// router.post('/add', async(req, res) => {
-//    const user = await  Users.create({name : req.body.data})
-//   //  const response = await user.save() 
-//    res.send(user)
-// })
-// router.put('/update/:id',async(req,res)=>{
-//   const _id =  req.params.id 
-
-//   const user = await Users.updateOne({ _id : req.params.id},{ name : req.body.data})
-//   // const response = await user.save()
-//   res.send(user)
-// })
-// router.delete('/delete/:id',async (req,res)=>{
-// const user = await Users.deleteOne({_id : req.params.id})
-// res.send(user)
-// }
-// )
 router.post('/signup', async (req, res) => {
-  console.log('req', req.body)
-
   try {
-    const user = new Users(req.body.email_value)
+    const user = await Users.create(req.body)
 
-    const response = await user.save()
-
-    res.send({ message: 'Data added successfully!', data: response })
+  res.send(user)
   } catch (e) {
     res.send({ message: e })
   }
